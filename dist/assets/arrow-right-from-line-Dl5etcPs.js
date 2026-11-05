@@ -1,0 +1,1 @@
+import{n as t}from"./index-CUT5Y2Gw.js";import"./framework-Bu4p1GA-.js";import"./motion-DHG5tsOJ.js";const i=t("ArrowRightFromLine",[["path",{d:"M3 5v14",key:"1nt18q"}],["path",{d:"M21 12H7",key:"13ipq5"}],["path",{d:"m15 18 6-6-6-6",key:"6tx3qv"}]]);export{i as default};

@@ -1,0 +1,1 @@
+import{n as e}from"./index-CUT5Y2Gw.js";import"./framework-Bu4p1GA-.js";import"./motion-DHG5tsOJ.js";const r=e("IndentDecrease",[["path",{d:"M21 12H11",key:"wd7e0v"}],["path",{d:"M21 18H11",key:"4wu86t"}],["path",{d:"M21 6H11",key:"6dy1d6"}],["path",{d:"m7 8-4 4 4 4",key:"o5hrat"}]]);export{r as default};

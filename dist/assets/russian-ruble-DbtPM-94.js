@@ -1,0 +1,1 @@
+import{n as a}from"./index-CUT5Y2Gw.js";import"./framework-Bu4p1GA-.js";import"./motion-DHG5tsOJ.js";const o=a("RussianRuble",[["path",{d:"M6 11h8a4 4 0 0 0 0-8H9v18",key:"18ai8t"}],["path",{d:"M6 15h8",key:"1y8f6l"}]]);export{o as default};

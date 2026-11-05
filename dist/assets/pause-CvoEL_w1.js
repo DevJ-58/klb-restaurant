@@ -1,0 +1,1 @@
+import{n as e}from"./index-CUT5Y2Gw.js";import"./framework-Bu4p1GA-.js";import"./motion-DHG5tsOJ.js";const o=e("Pause",[["rect",{x:"14",y:"4",width:"4",height:"16",rx:"1",key:"zuxfzm"}],["rect",{x:"6",y:"4",width:"4",height:"16",rx:"1",key:"1okwgv"}]]);export{o as default};

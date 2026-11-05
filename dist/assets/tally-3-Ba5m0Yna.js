@@ -1,0 +1,1 @@
+import{n as t}from"./index-CUT5Y2Gw.js";import"./framework-Bu4p1GA-.js";import"./motion-DHG5tsOJ.js";const p=t("Tally3",[["path",{d:"M4 4v16",key:"6qkkli"}],["path",{d:"M9 4v16",key:"81ygyz"}],["path",{d:"M14 4v16",key:"12vmem"}]]);export{p as default};

@@ -1,0 +1,67 @@
+.route-loading {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  color: var(--color-ivory, #fbf6ea);
+}
+
+.not-found-page,
+.route-error {
+  min-height: 65vh;
+  padding: clamp(5rem, 12vw, 10rem) max(1.25rem, calc((100vw - 72rem) / 2));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.25rem;
+  color: var(--color-ivory, #fbf6ea);
+  background: var(--color-ink, #0b0806);
+}
+
+.not-found-code {
+  margin: 0;
+  color: var(--color-gold, #f5a912);
+  font-size: clamp(3rem, 10vw, 7rem);
+  line-height: 0.9;
+}
+
+.not-found-page h1,
+.route-error h1 {
+  max-width: 14ch;
+  margin: 0;
+  font-family: "Fraunces Variable", serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 500;
+}
+
+.not-found-page p,
+.route-error p {
+  max-width: 42rem;
+  margin: 0;
+  line-height: 1.7;
+}
+
+.not-found-link,
+.route-error button {
+  min-height: 44px;
+  padding: 0.75rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+}
+
+.route-error button {
+  cursor: pointer;
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+}
