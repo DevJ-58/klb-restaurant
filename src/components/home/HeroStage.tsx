@@ -100,7 +100,7 @@ export function HeroStage() {
       className="home-hero-stage"
       ref={stageRef}
       data-bg-end={homeSectionById.hero.bgEnd}
-      data-theme="dark"
+      data-surface="dark"
       style={{ backgroundColor: cssColor(homeSectionById.hero.bgEnd) }}
       aria-label="KLB Restaurant"
     >

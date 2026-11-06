@@ -3,7 +3,6 @@ import { MapPin, MessageCircle, Phone } from 'lucide-react';
 import { site } from '../../config/site';
 import { formatBusinessHours } from '../../lib/hours';
 import { BrandLogo } from '../BrandLogo';
-import { ThemeToggle } from '../ui/ThemeToggle';
 import { TransitionLink } from '../transition/TransitionLink';
 
 export function Footer() {
@@ -19,7 +18,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="site-footer" aria-label="Pied de page" data-theme="dark" style={{ ['--footer-dome-bg' as string]: '#0B0806', ['--footer-dome-line' as string]: '#d7b15b' }}>
+    <footer className="site-footer" aria-label="Pied de page" data-surface="dark" style={{ ['--footer-dome-bg' as string]: '#0B0806', ['--footer-dome-line' as string]: '#d7b15b' }}>
       <div className="site-footer-inner" data-content>
         <TransitionLink className="footer-brand" to="/" aria-label="KLB Restaurant, accueil">
           <BrandLogo />
@@ -47,7 +46,6 @@ export function Footer() {
       </div>
       <div className="footer-bottom-bar" data-content>
         <span>© 2026 KLB Restaurant</span>
-        <ThemeToggle />
         <span>Site conçu par {'</DevJ>'}</span>
       </div>
     </footer>

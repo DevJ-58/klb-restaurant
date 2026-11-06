@@ -35,7 +35,7 @@ export function Faq({ items }: FaqProps) {
       bgEnd="surface-warm-soft"
       seam="dome"
       prevBg="surface-raised"
-      data-theme="light"
+      data-surface="light"
       aria-labelledby="faq-title"
     >
       <SectionTitle id="faq-title" className="faq-title">

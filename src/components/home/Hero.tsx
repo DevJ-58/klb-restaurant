@@ -210,7 +210,7 @@ export function Hero() {
       <Section
         className="home-hero"
         ref={sectionRef}
-        data-theme="dark"
+        data-surface="dark"
         aria-labelledby="home-hero-title"
         style={{ backgroundColor: homeSectionById.hero.bgStart }}
       >

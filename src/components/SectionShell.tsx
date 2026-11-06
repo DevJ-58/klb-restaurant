@@ -13,7 +13,7 @@ export function SectionShell({ children, tone, className = '', seam, id }: Secti
   return (
     <Section
       id={id}
-      data-theme={tone === 'ivory' ? 'light' : 'dark'}
+      data-surface={tone === 'ivory' ? 'light' : 'dark'}
       className={`section-shell section-shell--${tone}${seam ? ` section-shell--seam-${seam}` : ''} ${className}`.trim()}
     >
       <div className="section-shell-inner">{children}</div>

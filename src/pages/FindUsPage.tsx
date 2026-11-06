@@ -124,7 +124,7 @@ export function FindUsPage() {
     <>
       <JsonLd id="nous-trouver-restaurant-jsonld" data={restaurantJsonLd} />
       <JsonLd id="nous-trouver-faq-jsonld" data={faqJsonLd} />
-      <section className="find-us-page-hero" aria-labelledby="nous-trouver-title" data-theme="dark">
+      <section className="find-us-page-hero" aria-labelledby="nous-trouver-title" data-surface="dark">
         <div className="find-us-page-hero-inner">
           <h1 id="nous-trouver-title" data-content>
             <span className="find-us-page-title-line">

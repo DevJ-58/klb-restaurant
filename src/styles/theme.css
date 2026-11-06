@@ -102,24 +102,3 @@ body {
 .theme-toggle[aria-checked='true'] .theme-toggle__track {
   transform: rotate(180deg);
 }
-
-.mobile-menu-footer {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.mobile-menu-footer .theme-toggle {
-  align-self: flex-end;
-}
-
-.footer-bottom-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.footer-bottom-bar .theme-toggle {
-  margin-left: auto;
-}

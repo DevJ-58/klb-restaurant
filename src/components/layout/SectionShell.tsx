@@ -7,9 +7,10 @@ import {
 
 type SectionShellProps = Omit<
   ComponentPropsWithoutRef<'section'>,
-  'id' | 'className' | 'style' | 'children'
+  'id' | 'className' | 'style' | 'children' | 'data-surface'
 > & {
   id?: string;
+  'data-surface'?: 'light' | 'dark';
   bgStart: string;
   bgEnd?: string;
   seam?: 'none' | 'fade' | 'dome';
@@ -44,11 +45,11 @@ export const SectionShell = forwardRef<HTMLElement, SectionShellProps>(function 
     className = '',
     style,
     children,
+    'data-surface': dataSurface = 'dark',
     ...props
   },
   ref,
 ) {
-  const sectionTheme = (props as { 'data-theme'?: string })['data-theme'] ?? 'dark';
   const shellStyle = {
     ...style,
     backgroundImage: `linear-gradient(to bottom, ${resolveThemeToken(bgStart)}, ${resolveThemeToken(bgEnd)})`,
@@ -63,7 +64,7 @@ export const SectionShell = forwardRef<HTMLElement, SectionShellProps>(function 
       id={id}
       ref={ref}
       data-bg-end={bgEnd}
-      data-theme={sectionTheme}
+      data-surface={dataSurface}
       className={`section-shell section-shell--${seam}${className ? ` ${className}` : ''}`}
       style={shellStyle}
     >

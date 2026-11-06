@@ -70,7 +70,7 @@ export function ActionBar() {
   useGSAP(
     () => {
       const bar = barRef.current;
-      const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-theme]'));
+      const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-surface]'));
       if (!bar || sections.length === 0) {
         return;
       }
@@ -82,7 +82,7 @@ export function ActionBar() {
           return bounds.top <= probeY && bounds.bottom > probeY;
         });
         if (sectionAtProbe) {
-          bar.dataset.on = sectionAtProbe.dataset.theme === 'light' ? 'light' : 'dark';
+          bar.dataset.on = sectionAtProbe.dataset.surface === 'light' ? 'light' : 'dark';
         }
       };
 
