@@ -24,8 +24,8 @@ export const homeSections: readonly HomeSectionDefinition[] = [
   { id: 'incontournables', bgStart: 'surface-raised', bgEnd: 'surface-green', seam: 'dome' },
   { id: 'chiffres', bgStart: 'surface-green', bgEnd: 'surface-base' },
   { id: 'ambiance', bgStart: 'surface-raised', bgEnd: 'surface-raised', seam: 'fade' },
-  { id: 'marquee', bgStart: 'surface-warm-soft', bgEnd: 'surface-warm-soft', seam: 'dome' },
-  { id: 'orderTiles', bgStart: 'surface-warm-soft', bgEnd: 'surface-warm-soft', seam: 'none' },
+  { id: 'marquee', bgStart: 'ivory', bgEnd: 'ivory', seam: 'dome' },
+  { id: 'orderTiles', bgStart: 'ivory', bgEnd: 'ivory', seam: 'none' },
   { id: 'findUs', bgStart: 'surface-raised', bgEnd: 'surface-raised', seam: 'dome' },
   { id: 'footer', bgStart: 'surface-base', bgEnd: 'surface-base', seam: 'dome' },
 ];

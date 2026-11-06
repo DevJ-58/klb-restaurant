@@ -31,8 +31,8 @@ export function Faq({ items }: FaqProps) {
   return (
     <SectionShell
       className="faq-section"
-      bgStart="surface-warm-soft"
-      bgEnd="surface-warm-soft"
+      bgStart="ivory"
+      bgEnd="ivory"
       seam="dome"
       prevBg="surface-raised"
       data-surface="light"

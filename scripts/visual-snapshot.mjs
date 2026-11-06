@@ -22,7 +22,11 @@ for (let index = 2; index < process.argv.length; index += 1) {
 
 const mode = args.get('--mode') ?? 'baseline';
 const theme = args.get('--theme') ?? 'dark';
-const baseUrl = process.env.KLB_BASE_URL ?? 'http://127.0.0.1:5173';
+const baseUrl = (args.get('--base-url') ?? process.env.KLB_BASE_URL ?? 'http://127.0.0.1:5173').replace(/\/$/, '');
+const outputDir = path.resolve(rootDir, args.get('--out') ?? `snapshots/${theme}`);
+const referenceDir = path.resolve(rootDir, args.get('--reference') ?? 'snapshots/baseline-dark');
+const diffDir = args.has('--diff-dir') ? path.resolve(rootDir, args.get('--diff-dir')) : null;
+const maskMobileHeader = args.has('--mask-mobile-header');
 const pages = ['/', '/carte', '/ambiance', '/nous-trouver', '/unknown'];
 const sizes = [
   { width: 375, height: 800 },
@@ -35,19 +39,37 @@ function slugify(value) {
   return sanitized || 'home';
 }
 
+function maskHeader(png, width) {
+  if (!maskMobileHeader || width !== 375) {
+    return;
+  }
+
+  const maskHeight = Math.min(96, png.height);
+  for (let y = 0; y < maskHeight; y += 1) {
+    for (let x = 0; x < png.width; x += 1) {
+      const offset = (y * png.width + x) * 4;
+      png.data[offset] = 0;
+      png.data[offset + 1] = 0;
+      png.data[offset + 2] = 0;
+      png.data[offset + 3] = 255;
+    }
+  }
+}
+
 async function capturePage(page, route, width, height, selectedTheme) {
   await page.setViewportSize({ width, height });
-  await page.addInitScript((themeKey, themeValue) => {
+  await page.addInitScript(({ themeKey, themeValue }) => {
     localStorage.setItem(themeKey, themeValue);
-  }, ['klb-theme', selectedTheme]);
+  }, { themeKey: 'klb-theme', themeValue: selectedTheme });
   await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle', timeout: 45_000 });
+  await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(1500);
   await page.addStyleTag({ content: '*, *::before, *::after { cursor: auto !important; } .cursor, .cursor-light { display: none !important; }' });
-  const buffer = await page.screenshot({ fullPage: true, type: 'png' });
-  const targetDir = path.join(rootDir, 'snapshots', selectedTheme);
-  await fs.mkdir(targetDir, { recursive: true });
-  const outputPath = path.join(targetDir, `${slugify(route)}-${width}.png`);
-  await fs.writeFile(outputPath, buffer);
+  const png = PNG.sync.read(await page.screenshot({ fullPage: true, type: 'png' }));
+  maskHeader(png, width);
+  await fs.mkdir(outputDir, { recursive: true });
+  const outputPath = path.join(outputDir, `${slugify(route)}-${width}.png`);
+  await fs.writeFile(outputPath, PNG.sync.write(png));
   return outputPath;
 }
 
@@ -64,36 +86,58 @@ async function runBaseline() {
 }
 
 async function runCompare() {
-  const currentDir = path.join(rootDir, 'snapshots', theme);
-  const baselineDir = path.join(rootDir, 'snapshots', 'baseline');
-  const files = [];
+  let failures = 0;
+  let compared = 0;
 
   for (const { width } of sizes) {
     for (const route of pages) {
-      const currentPath = path.join(currentDir, `${slugify(route)}-${width}.png`);
-      const baselinePath = path.join(baselineDir, `${slugify(route)}-${width}.png`);
-      const baselineExists = await fs.access(baselinePath).then(() => true).catch(() => false);
-      const sourcePath = baselineExists ? baselinePath : currentPath;
-      if (!await fs.access(currentPath).then(() => true).catch(() => false)) {
-        continue;
-      }
-      files.push({ currentPath, sourcePath, label: `${slugify(route)}-${width}` });
-    }
-  }
-
-  let failures = 0;
-  for (const { currentPath, sourcePath, label } of files) {
-    const current = PNG.sync.read(await fs.readFile(currentPath));
-    const baseline = PNG.sync.read(await fs.readFile(sourcePath));
-    const diff = new PNG({ width: current.width, height: current.height });
-    const diffPixels = pixelmatch(current.data, baseline.data, diff.data, current.width, current.height, { threshold: 0.1 });
-    const percent = (diffPixels / (current.width * current.height)) * 100;
-    console.log(`${label}: ${percent.toFixed(4)}% pixels different`);
-    if (percent > 0.05) {
+      const name = `${slugify(route)}-${width}.png`;
+      const currentPath = path.join(outputDir, name);
+      const referencePath = path.join(referenceDir, name);
+      try {
+      await fs.access(currentPath);
+      await fs.access(referencePath);
+      } catch {
+      console.error(`${name}: missing current or reference snapshot`);
       failures += 1;
+      continue;
+      }
+
+      const current = PNG.sync.read(await fs.readFile(currentPath));
+      const reference = PNG.sync.read(await fs.readFile(referencePath));
+      if (current.width !== reference.width || current.height !== reference.height) {
+      console.error(
+        `${name}: dimension mismatch current=${current.width}x${current.height} reference=${reference.width}x${reference.height}`,
+      );
+      failures += 1;
+      continue;
+      }
+
+      maskHeader(current, width);
+      maskHeader(reference, width);
+      const diff = new PNG({ width: current.width, height: current.height });
+      const diffPixels = pixelmatch(
+      current.data,
+      reference.data,
+      diff.data,
+      current.width,
+      current.height,
+      { threshold: 0.1 },
+      );
+      const percent = (diffPixels / (current.width * current.height)) * 100;
+      console.log(`${name}: ${percent.toFixed(4)}% pixels different`);
+      compared += 1;
+      if (diffPixels > 0 && diffDir) {
+      await fs.mkdir(diffDir, { recursive: true });
+      await fs.writeFile(path.join(diffDir, name), PNG.sync.write(diff));
+      }
+      if (percent > 0.05) {
+      failures += 1;
+      }
     }
   }
 
+  console.log(`Compared ${compared}/${pages.length * sizes.length} images; failures=${failures}`);
   process.exit(failures > 0 ? 1 : 0);
 }
 

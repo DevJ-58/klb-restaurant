@@ -44,7 +44,7 @@ html {
 
 body {
   background: var(--surface-base);
-  color: var(--text-strong);
+  color: var(--text-on-dark);
 }
 
 :focus-visible {

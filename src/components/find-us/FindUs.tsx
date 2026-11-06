@@ -73,7 +73,7 @@ export function FindUs({ variant = 'home' }: FindUsProps) {
       bgStart="surface-raised"
       bgEnd="surface-raised"
       seam="dome"
-      prevBg="surface-warm-soft"
+      prevBg="ivory"
       aria-labelledby="find-us-title"
     >
       <div className="find-us-layout">

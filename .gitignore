@@ -2,6 +2,14 @@ node_modules
 snapshots/
 .env
 .env.local
+.env.*.local
 !.env.example
 dist/
 public/images-opt/
+public/icons/
+public/og-partage.jpg
+public/sitemap.xml
+public/robots.txt
+*.log
+.DS_Store
+Thumbs.db
