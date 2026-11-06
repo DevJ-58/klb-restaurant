@@ -9,6 +9,8 @@ import './styles/tokens.css';
 import './styles/touches.css';
 import './styles/nous-trouver.css';
 import './styles/tiles.css';
+import './styles/theme.css';
+import './styles/theme-light.css';
 
 const rootElement = document.getElementById('root');
 

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { IntroProvider } from './components/loader/Loader';
 import { TransitionProvider } from './components/transition/TransitionProvider';
+import { ThemeProvider } from './lib/ThemeProvider';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 const Carte = lazy(() => import('./pages/Carte').then(({ Carte: page }) => ({ default: page })));
@@ -26,20 +27,22 @@ function RouteSuspense({ children }: { children: ReactNode }) {
 
 export function App() {
   return (
-    <BrowserRouter>
-      <IntroProvider>
-        <TransitionProvider>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route index element={<RouteSuspense><HomePage /></RouteSuspense>} />
-              <Route path="carte" element={<RouteSuspense><Carte /></RouteSuspense>} />
-              <Route path="ambiance" element={<RouteSuspense><AmbiancePage /></RouteSuspense>} />
-              <Route path="nous-trouver" element={<RouteSuspense><FindUsPage /></RouteSuspense>} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </TransitionProvider>
-      </IntroProvider>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <IntroProvider>
+          <TransitionProvider>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route index element={<RouteSuspense><HomePage /></RouteSuspense>} />
+                <Route path="carte" element={<RouteSuspense><Carte /></RouteSuspense>} />
+                <Route path="ambiance" element={<RouteSuspense><AmbiancePage /></RouteSuspense>} />
+                <Route path="nous-trouver" element={<RouteSuspense><FindUsPage /></RouteSuspense>} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </TransitionProvider>
+        </IntroProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }

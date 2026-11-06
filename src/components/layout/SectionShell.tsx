@@ -19,6 +19,21 @@ type SectionShellProps = Omit<
   children?: ReactNode;
 };
 
+function resolveThemeToken(token: string): string {
+  const normalized = token.trim();
+  if (
+    normalized.startsWith('#') ||
+    normalized.startsWith('rgb') ||
+    normalized.startsWith('hsl') ||
+    normalized.startsWith('linear-gradient') ||
+    normalized.startsWith('var(')
+  ) {
+    return normalized;
+  }
+
+  return `var(--${normalized})`;
+}
+
 export const SectionShell = forwardRef<HTMLElement, SectionShellProps>(function SectionShell(
   {
     id,
@@ -33,12 +48,13 @@ export const SectionShell = forwardRef<HTMLElement, SectionShellProps>(function 
   },
   ref,
 ) {
+  const sectionTheme = (props as { 'data-theme'?: string })['data-theme'] ?? 'dark';
   const shellStyle = {
     ...style,
-    backgroundImage: `linear-gradient(to bottom, ${bgStart}, ${bgEnd})`,
-    ...(prevBg ? { '--section-prev-bg': prevBg } : {}),
-    ...(bgStart ? { '--section-bg-start': bgStart } : {}),
-    ...(bgEnd ? { '--section-bg-end': bgEnd } : {}),
+    backgroundImage: `linear-gradient(to bottom, ${resolveThemeToken(bgStart)}, ${resolveThemeToken(bgEnd)})`,
+    ...(prevBg ? { '--section-prev-bg': resolveThemeToken(prevBg) } : {}),
+    ...(bgStart ? { '--section-bg-start': resolveThemeToken(bgStart) } : {}),
+    ...(bgEnd ? { '--section-bg-end': resolveThemeToken(bgEnd) } : {}),
   } as CSSProperties;
 
   return (
@@ -47,12 +63,7 @@ export const SectionShell = forwardRef<HTMLElement, SectionShellProps>(function 
       id={id}
       ref={ref}
       data-bg-end={bgEnd}
-      data-theme={
-        bgStart.trim().toLowerCase() === '#fbf6ea' ||
-        bgStart.trim().toLowerCase() === 'var(--ivory)'
-          ? 'light'
-          : 'dark'
-      }
+      data-theme={sectionTheme}
       className={`section-shell section-shell--${seam}${className ? ` ${className}` : ''}`}
       style={shellStyle}
     >

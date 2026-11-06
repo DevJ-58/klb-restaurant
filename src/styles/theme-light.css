@@ -1,0 +1,48 @@
+html[data-theme='light'] {
+  color-scheme: light;
+  --surface-base: #fbf6ea;
+  --surface-raised: #f2e8d0;
+  --surface-green: #e4ecdc;
+  --surface-green-glow: #eef4e6;
+  --surface-deep: #d9e5d2;
+  --surface-warm: #f6e5c1;
+  --surface-warm-soft: #f5ead6;
+  --surface-header: rgb(251 246 234 / 92%);
+  --text-rgb: 26 17 11;
+  --text-strong: rgb(var(--text-rgb));
+  --text-on-dark: rgb(var(--text-rgb) / 92%);
+  --text-muted: rgb(var(--text-rgb) / 68%);
+  --text-subtle: rgb(var(--text-rgb) / 60%);
+  --line-rgb: 154 95 6;
+  --border-gold: rgb(var(--line-rgb) / 28%);
+  --accent-text: #9a5f06;
+  --focus-color: #9a5f06;
+  --gold-text-gradient: linear-gradient(135deg, #b9740a 0%, #8f5705 55%, #b9740a 100%);
+  --shadow-plate: 0 26px 50px -22px rgb(26 17 11 / 38%);
+  --text-shadow-soft: 0 1px 18px rgb(251 246 234 / 75%);
+  --curtain-shadow: rgb(26 17 11 / 30%);
+  --steam-core: rgb(201 128 11 / 22%);
+  --steam-edge: rgb(245 169 18 / 8%);
+  --glow-gold: rgb(245 169 18 / 18%);
+  --light-blend: multiply;
+  --light-core: rgb(245 169 18 / 14%);
+  --light-mid: rgb(245 169 18 / 5%);
+  --veil-center: var(--surface-green);
+  --veil-edge: var(--surface-deep);
+  --feat-bg-0: #f2e8d0;
+  --feat-bg-1: #e4ecdc;
+  --feat-bg-2: #fbf6ea;
+  --feat-bg-3: #f6e5c1;
+  --feat-bg-4: #d9e5d2;
+  --feat-bg-5: #f5ead6;
+  --feat-bg-6: #fbf6ea;
+}
+
+html[data-theme='light'] {
+  background: var(--surface-base);
+}
+
+html[data-theme='light'] body {
+  background: var(--surface-base);
+  color: var(--text-strong);
+}

@@ -70,10 +70,10 @@ export function FindUs({ variant = 'home' }: FindUsProps) {
     <SectionShell
       ref={sectionRef}
       className={`find-us-section${variant === 'page' ? ' find-us-section--page' : ''}`}
-      bgStart="#1A110B"
-      bgEnd="#1A110B"
+      bgStart="surface-raised"
+      bgEnd="surface-raised"
       seam="dome"
-      prevBg="#FBF6EA"
+      prevBg="surface-warm-soft"
       aria-labelledby="find-us-title"
     >
       <div className="find-us-layout">

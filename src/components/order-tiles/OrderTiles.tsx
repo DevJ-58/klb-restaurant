@@ -69,6 +69,7 @@ export function OrderTiles() {
       bgStart={section.bgStart}
       bgEnd={section.bgEnd}
       seam={section.seam}
+      data-theme="light"
       aria-labelledby="order-tiles-title"
     >
       <header className="order-tiles-heading">

@@ -3,6 +3,7 @@ import { MapPin, MessageCircle, Phone } from 'lucide-react';
 import { site } from '../../config/site';
 import { formatBusinessHours } from '../../lib/hours';
 import { BrandLogo } from '../BrandLogo';
+import { ThemeToggle } from '../ui/ThemeToggle';
 import { TransitionLink } from '../transition/TransitionLink';
 
 export function Footer() {
@@ -46,6 +47,7 @@ export function Footer() {
       </div>
       <div className="footer-bottom-bar" data-content>
         <span>© 2026 KLB Restaurant</span>
+        <ThemeToggle />
         <span>Site conçu par {'</DevJ>'}</span>
       </div>
     </footer>

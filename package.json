@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "audit": "node scripts/audit-scroll.mjs"
+    "audit": "node scripts/audit-scroll.mjs",
+    "snap:baseline": "node scripts/visual-snapshot.mjs --mode baseline",
+    "snap:compare": "node scripts/visual-snapshot.mjs --mode compare --theme dark",
+    "snap:light": "node scripts/visual-snapshot.mjs --mode baseline --theme light"
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.2.6",
@@ -25,7 +28,9 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^5.1.1",
+    "pixelmatch": "^8.0.0",
     "playwright": "^1.64.1",
+    "pngjs": "^7.0.0",
     "tailwindcss": "^4.1.17",
     "typescript": "~5.9.3",
     "vite": "^7.2.2"

@@ -132,6 +132,7 @@ export function Marquee() {
       className="marquee-section"
       ref={sectionRef}
       aria-labelledby="marquee-title"
+      data-theme="light"
       bgStart={homeSectionById.marquee.bgStart}
       bgEnd={homeSectionById.marquee.bgEnd}
       seam={homeSectionById.marquee.seam}

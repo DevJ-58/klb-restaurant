@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { homeSectionById } from '../../data/sections';
+import { cssColor } from '../../lib/theme-colors';
 import { prefersReducedMotion } from '../../lib/motion';
 import { useIntro } from '../loader/Loader';
 import { Hero } from './Hero';
@@ -100,7 +101,7 @@ export function HeroStage() {
       ref={stageRef}
       data-bg-end={homeSectionById.hero.bgEnd}
       data-theme="dark"
-      style={{ backgroundColor: homeSectionById.hero.bgEnd }}
+      style={{ backgroundColor: cssColor(homeSectionById.hero.bgEnd) }}
       aria-label="KLB Restaurant"
     >
       <div className="stage-sticky">

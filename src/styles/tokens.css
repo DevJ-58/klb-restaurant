@@ -1917,41 +1917,372 @@ a[href]:focus-visible {
     color: var(--ivory);
   }
 
-  .mobile-menu-toggle svg {
-    width: 24px;
-    height: 24px;
+  .mobile-menu-toggle:focus-visible,
+  .mobile-menu-close:focus-visible,
+  .mobile-menu-action:focus-visible,
+  .mobile-menu-link:focus-visible {
+    outline: 2px solid var(--gold-700);
+    outline-offset: 3px;
+  }
+
+  .mobile-cloche {
+    width: 36px;
+    height: 36px;
+    overflow: visible;
+  }
+
+  .mobile-cloche-dome {
+    transform-origin: 24px 24px;
+    transform: translateY(0) rotate(0);
+    transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .mobile-cloche-dome.is-raised {
+    transform: translateY(-6px) rotate(4deg);
+  }
+
+  .mobile-cloche-dome.is-animating {
+    will-change: transform;
+  }
+
+  .mobile-cloche-dome path,
+  .mobile-cloche-base {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .mobile-menu-backdrop {
+    position: fixed;
+    z-index: 68;
+    inset: 0;
+    display: block;
+    background: rgb(11 8 6 / 60%);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition:
+      opacity 350ms var(--ease-out),
+      visibility 0s linear 350ms;
+  }
+
+  .mobile-menu-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transition:
+      opacity 550ms var(--ease-out),
+      visibility 0s;
+  }
+
+  .mobile-menu-backdrop.is-animating {
+    will-change: opacity;
   }
 
   .mobile-menu {
     position: fixed;
-    z-index: 60;
-    inset: 0;
+    z-index: 69;
+    right: 0;
+    bottom: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(1.25rem, 5vh, 3rem);
-    padding: 6rem 1.5rem 2rem;
-    background: var(--ink);
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    height: min(70vh, 42rem);
+    height: min(70dvh, 42rem);
+    padding: 0 1.5rem calc(0.9rem + env(safe-area-inset-bottom));
+    overflow: hidden;
+    border-radius: clamp(2rem, 11vw, 4.5rem) clamp(2rem, 11vw, 4.5rem) 0 0;
+    background: var(--ivory);
+    color: var(--ink);
+    opacity: 1;
+    pointer-events: none;
+    transform: translate3d(0, 105%, 0);
+    visibility: hidden;
+    transition:
+      transform 350ms var(--ease-out),
+      visibility 0s linear 350ms;
   }
 
-  .mobile-menu[hidden] {
+  .mobile-menu.is-open {
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+    transition:
+      transform 550ms var(--ease-out),
+      visibility 0s;
+  }
+
+  .mobile-menu.is-animating {
+    will-change: transform;
+  }
+
+  .mobile-menu-top {
+    position: relative;
+    display: grid;
+    min-height: 48px;
+    flex: 0 0 48px;
+    place-items: center;
+  }
+
+  .mobile-menu-drag-handle {
+    display: grid;
+    width: 88px;
+    height: 44px;
+    place-items: center;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .mobile-menu-drag-handle span {
+    width: 40px;
+    height: 4px;
+    border-radius: var(--klb-radius-full);
+    background: var(--gold-700);
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .mobile-menu-navigation {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(0.1rem, 1.1vh, 0.55rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0.25rem 0;
+  }
+
+  .mobile-menu .mobile-menu-link {
+    display: flex;
+    width: 100%;
+    min-height: 44px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--ink);
+    font-family: "Fraunces Variable", serif;
+    font-size: clamp(2.2rem, 10vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  .mobile-menu .mobile-menu-link::after {
     display: none;
   }
 
-  .mobile-menu .header-link {
-    min-height: 0;
-    font-family: "Fraunces Variable", serif;
-    font-size: clamp(2.4rem, 11vw, 4rem);
-    line-height: 1.05;
+  .mobile-menu-link-marker {
+    width: 0.64rem;
+    height: 0.64rem;
+    flex: 0 0 0.64rem;
+    border: 1.5px solid var(--gold-700);
+    border-radius: 50%;
+    background: transparent;
   }
 
-  .mobile-menu .header-link::after {
-    bottom: -0.15rem;
+  .mobile-menu-link[aria-current="page"] .mobile-menu-link-marker,
+  .mobile-menu-link:active .mobile-menu-link-marker {
+    border-color: var(--gold-500);
+    background: var(--gold-500);
   }
 
-  .mobile-menu .header-order {
-    margin-top: 0.5rem;
+  .mobile-menu-link:active .mobile-menu-link-marker {
+    background: var(--gold-500);
+  }
+
+  .mobile-menu-link-mask {
+    display: block;
+    overflow: hidden;
+  }
+
+  .mobile-menu-link-text {
+    display: block;
+    opacity: 0;
+    transform: translateY(110%);
+    transition:
+      transform 420ms var(--ease-out),
+      opacity 300ms ease;
+  }
+
+  .mobile-menu.is-open .mobile-menu-link-text {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(var(--menu-index, 0) * 60ms);
+  }
+
+  .mobile-menu .mobile-menu-link.header-order {
+    min-height: 52px;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0 1rem;
+    border: 0;
+    border-radius: var(--klb-radius-full);
+    background: var(--gold-500);
+    color: var(--ink);
+  }
+
+  .mobile-menu .header-order .mobile-menu-link-marker {
+    border-color: var(--ink);
+  }
+
+  .mobile-menu .header-order .mobile-menu-link-text {
+    opacity: 0;
+  }
+
+  .mobile-menu .header-order:focus-visible {
+    outline-color: var(--ink);
+  }
+
+  .mobile-menu.is-open .header-order .mobile-menu-link-text {
+    opacity: 1;
+  }
+
+  .mobile-menu-footer {
+    display: flex;
+    min-height: 64px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid rgb(11 8 6 / 18%);
+  }
+
+  .mobile-menu-actions {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(0.15rem, 1.8vw, 0.65rem);
+  }
+
+  .mobile-menu-action {
+    display: grid;
+    min-width: 52px;
+    min-height: 64px;
+    grid-template-rows: 48px auto;
+    justify-items: center;
+    gap: 0.2rem;
+    color: var(--ink);
+    font-size: 0.62rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .mobile-menu-action::before {
+    width: 46px;
+    height: 46px;
+    grid-area: 1 / 1;
+    border: 1px solid var(--gold-700);
+    border-radius: 50%;
+    content: "";
+  }
+
+  .mobile-menu-action svg {
+    grid-area: 1 / 1;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .mobile-menu-action:active::before {
+    background: var(--gold-300);
+  }
+
+  .mobile-menu-open-status {
+    display: inline-flex;
+    min-height: 32px;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--gold-700);
+    border-radius: var(--klb-radius-full);
+    color: var(--ink);
+    font-size: 0.65rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .mobile-menu-open-status > span {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--gold-700);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-cloche-dome,
+    .mobile-cloche-dome.is-raised {
+      transform: none;
+      transition: none;
+    }
+
+    .mobile-cloche-dome.is-animating {
+      will-change: auto;
+    }
+
+    .mobile-menu,
+    .mobile-menu.is-open {
+      transform: none;
+      opacity: 0;
+      transition:
+        opacity 150ms linear,
+        visibility 0s linear 150ms;
+    }
+
+    .mobile-menu.is-open {
+      opacity: 1;
+      transition:
+        opacity 150ms linear,
+        visibility 0s;
+    }
+
+    .mobile-menu.is-animating {
+      will-change: opacity;
+    }
+
+    .mobile-menu-backdrop,
+    .mobile-menu-backdrop.is-open {
+      transition:
+        opacity 150ms linear,
+        visibility 0s linear 150ms;
+    }
+
+    .mobile-menu-backdrop.is-open {
+      transition:
+        opacity 150ms linear,
+        visibility 0s;
+    }
+
+    .mobile-menu-link-text,
+    .mobile-menu.is-open .mobile-menu-link-text {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 
   .page-content {

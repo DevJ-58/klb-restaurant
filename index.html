@@ -2,9 +2,42 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <style>
-      html, body { background: #0b0806; }
-    </style>
+    <script>
+      (() => {
+        try {
+          const enabled = '%VITE_ENABLE_LIGHT_MODE%' === 'true';
+          const key = 'klb-theme';
+          const defaultTheme = '%VITE_DEFAULT_THEME%';
+          const stored = localStorage.getItem(key);
+          const systemTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          const resolveTheme = () => {
+            if (!enabled) {
+              return 'dark';
+            }
+            if (stored === 'light' || stored === 'dark') {
+              return stored;
+            }
+            if (defaultTheme === 'light' || defaultTheme === 'dark') {
+              return defaultTheme;
+            }
+            if (defaultTheme === 'system') {
+              return systemTheme;
+            }
+            return 'dark';
+          };
+          const theme = resolveTheme();
+          document.documentElement.setAttribute('data-theme', theme);
+          document.documentElement.style.colorScheme = theme;
+          const meta = document.querySelector('meta[name="theme-color"]') || document.createElement('meta');
+          meta.setAttribute('name', 'theme-color');
+          meta.setAttribute('content', theme === 'light' ? '#fbf6ea' : '#0b0806');
+          document.head.appendChild(meta);
+        } catch (error) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          document.documentElement.style.colorScheme = 'dark';
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0B0806" />
     <meta
