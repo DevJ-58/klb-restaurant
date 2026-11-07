@@ -14,7 +14,6 @@ import { getOpenStatus } from '../../lib/hours';
 import { resumeLenis, stopLenis } from '../../lib/lenis';
 import { prefersReducedMotion } from '../../lib/motion';
 import { BrandLogo } from '../BrandLogo';
-import { ThemeToggle } from '../ui/ThemeToggle';
 import { TransitionLink } from '../transition/TransitionLink';
 
 const links = [
@@ -425,7 +424,6 @@ export function Header() {
           </TransitionLink>
           <div className="desktop-nav-half desktop-nav-half--right">
             {renderLink(links[2], 2)}
-            <ThemeToggle />
             <a className="header-order" href={site.whatsappLink()} target="_blank" rel="noreferrer">
               Commander
             </a>
@@ -504,7 +502,6 @@ export function Header() {
           </a>
         </nav>
         <div className="mobile-menu-footer">
-          <ThemeToggle />
           <div className="mobile-menu-actions" aria-label="Actions rapides">
             {site.phone && site.phoneLink && (
               <a

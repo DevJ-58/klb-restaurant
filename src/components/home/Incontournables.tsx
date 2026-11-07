@@ -6,7 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { featured, getFeaturedBackgrounds } from '../../data/featured';
 import { formatPrice, getItem, type MenuItem } from '../../data/menu';
 import { cssColor } from '../../lib/theme-colors';
-import { useTheme } from '../../lib/ThemeProvider';
 import { prefersReducedMotion } from '../../lib/motion';
 import { scrollLenisTo } from '../../lib/lenis';
 import { site } from '../../config/site';
@@ -42,7 +41,6 @@ export function Incontournables() {
   const pinTriggerRef = useRef<ScrollTrigger | null>(null);
   const mediaRef = useRef<gsap.MatchMedia | null>(null);
   const focusFrameRef = useRef<number | null>(null);
-  const { resolvedTheme } = useTheme();
   const backgrounds = getFeaturedBackgrounds();
 
   useGSAP(
@@ -266,7 +264,7 @@ export function Incontournables() {
         setHeaderLock(false);
       };
     },
-    { scope: sectionRef, dependencies: [resolvedTheme], revertOnUpdate: true },
+    { scope: sectionRef, revertOnUpdate: true },
   );
 
   useEffect(
