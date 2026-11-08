@@ -12,14 +12,12 @@ export const placements = {
   appetite: 'poulet-four',
 } as const;
 
-export function getFeaturedBackgrounds(): readonly string[] {
-  return [
-    'surface-raised',
-    'surface-green',
-    'surface-base',
-    'surface-warm',
-    'surface-deep',
-    'surface-warm-soft',
-    'surface-base',
-  ] as const;
-}
+export const featuredBackgrounds = [
+  '#1A110B',
+  '#0E2A1A',
+  '#0B0806',
+  '#2B1A06',
+  '#0A1F14',
+  '#1F1409',
+  '#0B0806',
+] as const;

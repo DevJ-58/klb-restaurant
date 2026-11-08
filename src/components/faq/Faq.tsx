@@ -31,10 +31,10 @@ export function Faq({ items }: FaqProps) {
   return (
     <SectionShell
       className="faq-section"
-      bgStart="ivory"
-      bgEnd="ivory"
+      bgStart="#FBF6EA"
+      bgEnd="#FBF6EA"
       seam="dome"
-      prevBg="surface-raised"
+      prevBg="#1A110B"
       data-surface="light"
       aria-labelledby="faq-title"
     >

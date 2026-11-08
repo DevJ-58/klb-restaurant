@@ -20,21 +20,6 @@ type SectionShellProps = Omit<
   children?: ReactNode;
 };
 
-function resolveThemeToken(token: string): string {
-  const normalized = token.trim();
-  if (
-    normalized.startsWith('#') ||
-    normalized.startsWith('rgb') ||
-    normalized.startsWith('hsl') ||
-    normalized.startsWith('linear-gradient') ||
-    normalized.startsWith('var(')
-  ) {
-    return normalized;
-  }
-
-  return `var(--${normalized})`;
-}
-
 export const SectionShell = forwardRef<HTMLElement, SectionShellProps>(function SectionShell(
   {
     id,
@@ -52,10 +37,10 @@ export const SectionShell = forwardRef<HTMLElement, SectionShellProps>(function 
 ) {
   const shellStyle = {
     ...style,
-    backgroundImage: `linear-gradient(to bottom, ${resolveThemeToken(bgStart)}, ${resolveThemeToken(bgEnd)})`,
-    ...(prevBg ? { '--section-prev-bg': resolveThemeToken(prevBg) } : {}),
-    ...(bgStart ? { '--section-bg-start': resolveThemeToken(bgStart) } : {}),
-    ...(bgEnd ? { '--section-bg-end': resolveThemeToken(bgEnd) } : {}),
+    backgroundImage: `linear-gradient(to bottom, ${bgStart}, ${bgEnd})`,
+    ...(prevBg ? { '--section-prev-bg': prevBg } : {}),
+    ...(bgStart ? { '--section-bg-start': bgStart } : {}),
+    ...(bgEnd ? { '--section-bg-end': bgEnd } : {}),
   } as CSSProperties;
 
   return (

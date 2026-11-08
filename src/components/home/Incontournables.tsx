@@ -3,9 +3,8 @@ import { ArrowRight } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { featured, getFeaturedBackgrounds } from '../../data/featured';
+import { featured, featuredBackgrounds } from '../../data/featured';
 import { formatPrice, getItem, type MenuItem } from '../../data/menu';
-import { cssColor } from '../../lib/theme-colors';
 import { prefersReducedMotion } from '../../lib/motion';
 import { scrollLenisTo } from '../../lib/lenis';
 import { site } from '../../config/site';
@@ -41,7 +40,6 @@ export function Incontournables() {
   const pinTriggerRef = useRef<ScrollTrigger | null>(null);
   const mediaRef = useRef<gsap.MatchMedia | null>(null);
   const focusFrameRef = useRef<number | null>(null);
-  const backgrounds = getFeaturedBackgrounds();
 
   useGSAP(
     () => {
@@ -114,8 +112,8 @@ export function Incontournables() {
           0,
         );
 
-        for (let index = 0; index < backgrounds.length - 1; index += 1) {
-          const nextBackground = cssColor(backgrounds[index + 1]);
+        for (let index = 0; index < featuredBackgrounds.length - 1; index += 1) {
+          const nextBackground = featuredBackgrounds[index + 1];
           if (nextBackground) {
             timeline.to(
               section,
@@ -342,7 +340,7 @@ export function Incontournables() {
         className={`featured-section${homeSectionById.incontournables.seam === 'dome' ? ' section-shell--dome' : ''}`}
         ref={sectionRef}
         aria-labelledby="featured-section-title"
-        style={{ backgroundColor: cssColor(homeSectionById.incontournables.bgStart) }}
+        style={{ backgroundColor: homeSectionById.incontournables.bgStart }}
       >
         <h2 className="visually-hidden" id="featured-section-title" data-content>
           Les incontournables de KLB

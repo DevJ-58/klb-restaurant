@@ -19,15 +19,15 @@ export type HomeSectionDefinition = {
 };
 
 export const homeSections: readonly HomeSectionDefinition[] = [
-  { id: 'hero', bgStart: 'surface-base', bgEnd: 'surface-green' },
-  { id: 'appetite', bgStart: 'surface-green', bgEnd: 'surface-green' },
-  { id: 'incontournables', bgStart: 'surface-raised', bgEnd: 'surface-green', seam: 'dome' },
-  { id: 'chiffres', bgStart: 'surface-green', bgEnd: 'surface-base' },
-  { id: 'ambiance', bgStart: 'surface-raised', bgEnd: 'surface-raised', seam: 'fade' },
-  { id: 'marquee', bgStart: 'ivory', bgEnd: 'ivory', seam: 'dome' },
-  { id: 'orderTiles', bgStart: 'ivory', bgEnd: 'ivory', seam: 'none' },
-  { id: 'findUs', bgStart: 'surface-raised', bgEnd: 'surface-raised', seam: 'dome' },
-  { id: 'footer', bgStart: 'surface-base', bgEnd: 'surface-base', seam: 'dome' },
+  { id: 'hero', bgStart: '#0B0806', bgEnd: '#0E2A1A' },
+  { id: 'appetite', bgStart: '#0E2A1A', bgEnd: '#0E2A1A' },
+  { id: 'incontournables', bgStart: '#1A110B', bgEnd: '#0E2A1A', seam: 'dome' },
+  { id: 'chiffres', bgStart: '#0E2A1A', bgEnd: '#0B0806' },
+  { id: 'ambiance', bgStart: '#1A110B', bgEnd: '#1A110B', seam: 'fade' },
+  { id: 'marquee', bgStart: '#FBF6EA', bgEnd: '#FBF6EA', seam: 'dome' },
+  { id: 'orderTiles', bgStart: '#FBF6EA', bgEnd: '#FBF6EA', seam: 'none' },
+  { id: 'findUs', bgStart: '#1A110B', bgEnd: '#1A110B', seam: 'dome' },
+  { id: 'footer', bgStart: '#0B0806', bgEnd: '#0B0806', seam: 'dome' },
 ];
 
 export const homeSectionById = Object.fromEntries(
