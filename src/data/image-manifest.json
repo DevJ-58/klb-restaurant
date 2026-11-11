@@ -4,11 +4,19 @@
     "height": 500,
     "avif": [
       {
+        "src": "/images-opt/brand/logo-klb-rond-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/brand/logo-klb-rond-480.avif",
         "width": 480
       }
     ],
     "webp": [
+      {
+        "src": "/images-opt/brand/logo-klb-rond-320.webp",
+        "width": 320
+      },
       {
         "src": "/images-opt/brand/logo-klb-rond-480.webp",
         "width": 480
@@ -20,14 +28,30 @@
     "height": 736,
     "avif": [
       {
+        "src": "/images-opt/equipe/cuisine-dressage-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/equipe/cuisine-dressage-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/equipe/cuisine-dressage-640.avif",
+        "width": 640
       }
     ],
     "webp": [
       {
+        "src": "/images-opt/equipe/cuisine-dressage-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/equipe/cuisine-dressage-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/equipe/cuisine-dressage-640.webp",
+        "width": 640
       }
     ]
   },
@@ -36,8 +60,16 @@
     "height": 1350,
     "avif": [
       {
+        "src": "/images-opt/equipe/cuisine-flamme-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/equipe/cuisine-flamme-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/equipe/cuisine-flamme-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/equipe/cuisine-flamme-800.avif",
@@ -46,8 +78,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/equipe/cuisine-flamme-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/equipe/cuisine-flamme-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/equipe/cuisine-flamme-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/equipe/cuisine-flamme-800.webp",
@@ -60,8 +100,16 @@
     "height": 1350,
     "avif": [
       {
+        "src": "/images-opt/equipe/equipe-service-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/equipe/equipe-service-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/equipe/equipe-service-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/equipe/equipe-service-800.avif",
@@ -70,8 +118,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/equipe/equipe-service-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/equipe/equipe-service-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/equipe/equipe-service-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/equipe/equipe-service-800.webp",
@@ -84,8 +140,16 @@
     "height": 1440,
     "avif": [
       {
+        "src": "/images-opt/hero/hero-plat-signature-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/hero/hero-plat-signature-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/hero/hero-plat-signature-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/hero/hero-plat-signature-800.avif",
@@ -94,8 +158,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/hero/hero-plat-signature-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/hero/hero-plat-signature-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/hero/hero-plat-signature-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/hero/hero-plat-signature-800.webp",
@@ -108,14 +180,30 @@
     "height": 900,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-boeuf-oignons-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-boeuf-oignons-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-boeuf-oignons-640.avif",
+        "width": 640
       }
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-boeuf-oignons-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-boeuf-oignons-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-boeuf-oignons-640.webp",
+        "width": 640
       }
     ]
   },
@@ -124,14 +212,30 @@
     "height": 711,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-brochettes-volaille-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-brochettes-volaille-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-brochettes-volaille-640.avif",
+        "width": 640
       }
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-brochettes-volaille-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-brochettes-volaille-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-brochettes-volaille-640.webp",
+        "width": 640
       }
     ]
   },
@@ -140,11 +244,19 @@
     "height": 300,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-cailles-gingembre-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-cailles-gingembre-480.avif",
         "width": 480
       }
     ],
     "webp": [
+      {
+        "src": "/images-opt/plats/plat-cailles-gingembre-320.webp",
+        "width": 320
+      },
       {
         "src": "/images-opt/plats/plat-cailles-gingembre-480.webp",
         "width": 480
@@ -156,14 +268,30 @@
     "height": 920,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-canard-laque-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-canard-laque-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-canard-laque-640.avif",
+        "width": 640
       }
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-canard-laque-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-canard-laque-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-canard-laque-640.webp",
+        "width": 640
       }
     ]
   },
@@ -172,8 +300,16 @@
     "height": 960,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-choucouya-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-choucouya-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-choucouya-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-choucouya-800.avif",
@@ -182,8 +318,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-choucouya-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-choucouya-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-choucouya-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-choucouya-800.webp",
@@ -196,8 +340,16 @@
     "height": 1080,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-escargots-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-escargots-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-escargots-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-escargots-800.avif",
@@ -206,8 +358,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-escargots-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-escargots-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-escargots-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-escargots-800.webp",
@@ -218,38 +378,82 @@
   "/images/plats/plat-etouffe-mouton.jpg": {
     "width": 452,
     "height": 678,
-    "avif": [],
-    "webp": []
+    "avif": [
+      {
+        "src": "/images-opt/plats/plat-etouffe-mouton-320.avif",
+        "width": 320
+      }
+    ],
+    "webp": [
+      {
+        "src": "/images-opt/plats/plat-etouffe-mouton-320.webp",
+        "width": 320
+      }
+    ]
   },
   "/images/plats/plat-filet-mignon.jpg": {
     "width": 768,
     "height": 768,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-filet-mignon-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-filet-mignon-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-filet-mignon-640.avif",
+        "width": 640
       }
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-filet-mignon-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-filet-mignon-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-filet-mignon-640.webp",
+        "width": 640
       }
     ]
   },
   "/images/plats/plat-formule-plaisir.jpg": {
     "width": 347,
     "height": 280,
-    "avif": [],
-    "webp": []
+    "avif": [
+      {
+        "src": "/images-opt/plats/plat-formule-plaisir-320.avif",
+        "width": 320
+      }
+    ],
+    "webp": [
+      {
+        "src": "/images-opt/plats/plat-formule-plaisir-320.webp",
+        "width": 320
+      }
+    ]
   },
   "/images/plats/plat-gambas.jpg": {
     "width": 1080,
     "height": 1080,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-gambas-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-gambas-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-gambas-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-gambas-800.avif",
@@ -258,8 +462,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-gambas-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-gambas-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-gambas-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-gambas-800.webp",
@@ -272,8 +484,16 @@
     "height": 674,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-garnitures-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-garnitures-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-garnitures-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-garnitures-800.avif",
@@ -282,8 +502,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-garnitures-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-garnitures-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-garnitures-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-garnitures-800.webp",
@@ -302,8 +530,16 @@
     "height": 1200,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-marmite-chef-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-marmite-chef-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-marmite-chef-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-marmite-chef-800.avif",
@@ -312,8 +548,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-marmite-chef-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-marmite-chef-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-marmite-chef-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-marmite-chef-800.webp",
@@ -326,14 +570,30 @@
     "height": 922,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-mouton-fondant-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-mouton-fondant-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-mouton-fondant-640.avif",
+        "width": 640
       }
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-mouton-fondant-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-mouton-fondant-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-mouton-fondant-640.webp",
+        "width": 640
       }
     ]
   },
@@ -342,8 +602,16 @@
     "height": 1200,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-pondeuse-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-pondeuse-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-pondeuse-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-pondeuse-800.avif",
@@ -356,8 +624,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-pondeuse-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-pondeuse-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-pondeuse-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-pondeuse-800.webp",
@@ -374,8 +650,16 @@
     "height": 1350,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-poulet-braise-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-poulet-braise-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-poulet-braise-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-poulet-braise-800.avif",
@@ -384,8 +668,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-poulet-braise-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-poulet-braise-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-poulet-braise-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-poulet-braise-800.webp",
@@ -398,8 +690,16 @@
     "height": 1301,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-poulet-four-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-poulet-four-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-poulet-four-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-poulet-four-800.avif",
@@ -408,8 +708,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-poulet-four-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-poulet-four-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-poulet-four-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-poulet-four-800.webp",
@@ -422,8 +730,16 @@
     "height": 914,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-poulet-saute-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-poulet-saute-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-poulet-saute-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-poulet-saute-800.avif",
@@ -436,8 +752,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-poulet-saute-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-poulet-saute-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-poulet-saute-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-poulet-saute-800.webp",
@@ -454,11 +778,19 @@
     "height": 500,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-roti-poulet-legumes-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-roti-poulet-legumes-480.avif",
         "width": 480
       }
     ],
     "webp": [
+      {
+        "src": "/images-opt/plats/plat-roti-poulet-legumes-320.webp",
+        "width": 320
+      },
       {
         "src": "/images-opt/plats/plat-roti-poulet-legumes-480.webp",
         "width": 480
@@ -470,30 +802,64 @@
     "height": 736,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-saumon-champignons-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-saumon-champignons-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-saumon-champignons-640.avif",
+        "width": 640
       }
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-saumon-champignons-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-saumon-champignons-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-saumon-champignons-640.webp",
+        "width": 640
       }
     ]
   },
   "/images/plats/plat-steak-liqueur.jpg": {
     "width": 345,
     "height": 280,
-    "avif": [],
-    "webp": []
+    "avif": [
+      {
+        "src": "/images-opt/plats/plat-steak-liqueur-320.avif",
+        "width": 320
+      }
+    ],
+    "webp": [
+      {
+        "src": "/images-opt/plats/plat-steak-liqueur-320.webp",
+        "width": 320
+      }
+    ]
   },
   "/images/plats/plat-tilapia-four.jpg": {
     "width": 900,
     "height": 1200,
     "avif": [
       {
+        "src": "/images-opt/plats/plat-tilapia-four-320.avif",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-tilapia-four-480.avif",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-tilapia-four-640.avif",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-tilapia-four-800.avif",
@@ -502,8 +868,16 @@
     ],
     "webp": [
       {
+        "src": "/images-opt/plats/plat-tilapia-four-320.webp",
+        "width": 320
+      },
+      {
         "src": "/images-opt/plats/plat-tilapia-four-480.webp",
         "width": 480
+      },
+      {
+        "src": "/images-opt/plats/plat-tilapia-four-640.webp",
+        "width": 640
       },
       {
         "src": "/images-opt/plats/plat-tilapia-four-800.webp",

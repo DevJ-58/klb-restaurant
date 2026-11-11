@@ -14,7 +14,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { site } from '../config/site';
 import { ambianceCopy, ambiancePhotos } from '../data/ambiance.js';
 import { TransitionLink } from '../components/transition/TransitionLink';
-import { usePageTransition } from '../components/transition/TransitionProvider';
 import { getOpenStatus } from '../lib/hours';
 import { resumeLenis, stopLenis } from '../lib/lenis';
 import { prefersReducedMotion } from '../lib/motion';
@@ -325,8 +324,6 @@ export function AmbiancePage() {
   const [activePhotoId, setActivePhotoId] = useState<PhotoId | null>(null);
   const [openStatus] = useState(getOpenStatus);
   const [reducedMotion] = useState(prefersReducedMotion);
-  const [entryRevealVisible, setEntryRevealVisible] = useState(!reducedMotion);
-  const { isTransitioning } = usePageTransition();
   const visibleGalleryPhotos = galleryPhotos.filter(
     (photo) =>
       !(
@@ -682,32 +679,6 @@ export function AmbiancePage() {
       return () => media.revert();
     },
     { scope: pageRef, revertOnUpdate: true },
-  );
-
-  useGSAP(
-    () => {
-      const reveal = pageRef.current?.querySelector<HTMLElement>('.evening-entry-reveal');
-      if (!entryRevealVisible || isTransitioning || !reveal) {
-        return;
-      }
-      if (prefersReducedMotion()) {
-        setEntryRevealVisible(false);
-        return;
-      }
-      const timeline = gsap.timeline({ onComplete: () => setEntryRevealVisible(false) });
-      timeline
-        .fromTo(
-          reveal,
-          { clipPath: 'circle(0% at 50% 50%)' },
-          { clipPath: 'circle(150% at 50% 50%)', duration: 0.5, ease: 'expo.out' },
-        )
-        .to(reveal, { opacity: 0, duration: 0.2, ease: 'power2.out' });
-    },
-    {
-      scope: pageRef,
-      dependencies: [entryRevealVisible, isTransitioning],
-      revertOnUpdate: true,
-    },
   );
 
   useGSAP(
@@ -1125,9 +1096,6 @@ export function AmbiancePage() {
         </TransitionLink>
       </section>
 
-      {entryRevealVisible && !reducedMotion && !isTransitioning && (
-        <div className="evening-entry-reveal" aria-hidden="true" />
-      )}
       {activeIndex >= 0 && (
         <Lightbox
           photos={visibleGalleryPhotos}

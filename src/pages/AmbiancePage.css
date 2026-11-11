@@ -651,15 +651,6 @@
   z-index: 1;
 }
 
-.evening-entry-reveal {
-  position: fixed;
-  z-index: 80;
-  inset: 0;
-  background: var(--gold-gradient);
-  clip-path: circle(0% at 50% 50%);
-  pointer-events: none;
-}
-
 .evening-lightbox-backdrop {
   position: fixed;
   z-index: 9997;

@@ -38,6 +38,11 @@ export function getPictureProps(src: string, sizes = '100vw'): PictureProps | un
   };
 }
 
+export function getWebpVariant(src: string, maxWidth: number): string | undefined {
+  const variants = imageManifest[src]?.webp ?? [];
+  return variants.filter(({ width }) => width <= maxWidth).at(-1)?.src;
+}
+
 export function getImageSet(src: string): string {
   const image = imageManifest[src];
   if (!image) {

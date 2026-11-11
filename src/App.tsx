@@ -1,4 +1,4 @@
-import { lazy, Suspense, type ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useState, type ReactNode } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { IntroProvider } from './components/loader/Loader';
@@ -18,13 +18,40 @@ const HomePage = lazy(() =>
 
 function RouteSuspense({ children }: { children: ReactNode }) {
   return (
-    <Suspense fallback={<div className="route-loading" role="status">Chargement…</div>}>
+    <Suspense fallback={<RouteLoadingFallback />}>
       {children}
     </Suspense>
   );
 }
 
+function RouteLoadingFallback() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setVisible(true), 150);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <div className="route-loading" role="status">
+      <span className="route-loading__sr">Chargement de la page</span>
+      <svg className="route-loading__bell" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M10 31c0-12 6-20 14-20s14 8 14 20M7 33h34M20 11V8a4 4 0 0 1 8 0v3" />
+      </svg>
+    </div>
+  );
+}
+
 export function App() {
+  useEffect(() => {
+    window.__klbReady = true;
+    window.dispatchEvent(new Event('klb:ready'));
+  }, []);
+
   return (
     <BrowserRouter>
       <IntroProvider>

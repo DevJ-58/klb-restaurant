@@ -3,7 +3,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Outlet, useLocation } from 'react-router-dom';
 import { ActionBar } from './layout/ActionBar';
 import { Header } from './layout/Header';
-import { Loader } from './loader/Loader';
 import { Cursor } from './ui/Cursor';
 import { Footer } from './layout/Footer';
 import { CursorLight } from './effects/CursorLight';
@@ -29,7 +28,6 @@ export function Layout() {
       <a className="skip-link" href="#contenu">
         Aller au contenu
       </a>
-      <Loader />
       <Cursor />
       <CursorLight />
       <MagneticButtons />

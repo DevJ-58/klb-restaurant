@@ -1,7 +1,43 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="klb-loading">
   <head>
     <meta charset="UTF-8" />
+    <script>window.__klbPreloaderStart=performance.now();performance.mark('klb-preloader-start')</script>
+    <link
+      rel="preload"
+      as="font"
+      href="/fonts/fraunces-latin-wght-normal.woff2"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/src/preloader/preloader.css" />
+    <link rel="modulepreload" href="/src/preloader/preloader.js" />
+    <style>
+      html.klb-loading{overflow:hidden;animation:klb-unlock 1ms 3.5s forwards}
+      #klb-preloader{position:fixed;z-index:9999;inset:0;overflow:hidden;background:#0b0806;color:#fbf6ea;animation:klb-safety .2s 3.3s forwards}
+      .klb-shell,.klb-scene{position:absolute;inset:0}
+      .klb-dot{position:absolute;top:50%;left:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:#f5a912;transform:scale(1);animation:klb-pulse 1.4s ease-in-out infinite alternate}
+      .klb-line{position:absolute;top:50%;left:50%;width:min(68vw,680px);height:2px;background:#fbf6ea;transform:translate(-50%,-50%) scaleX(0);transform-origin:center;animation:klb-line 0.5s .15s cubic-bezier(.16,1,.3,1) forwards}
+      .klb-scene{visibility:hidden}
+      html.klb-managed{animation:none!important}
+      html.klb-managed #klb-preloader,html.klb-managed .klb-dot,html.klb-managed .klb-line{animation:none}
+      @keyframes klb-pulse{to{transform:scale(1.3)}}@keyframes klb-line{to{transform:translate(-50%,-50%) scaleX(1)}}@keyframes klb-safety{to{opacity:0;visibility:hidden}}@keyframes klb-unlock{to{overflow:visible}}
+      @media(prefers-reduced-motion:reduce){.klb-dot{animation:none}}
+    </style>
+    <link
+      rel="preload"
+      as="image"
+      href="/images-opt/hero/hero-background-1600.webp"
+      fetchpriority="high"
+      media="(min-width: 768px)"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="/images-opt/hero/hero-background-828.webp"
+      fetchpriority="high"
+      media="(max-width: 767px)"
+    />
     <script>
       (() => {
         try {
@@ -59,16 +95,43 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link
-      rel="preload"
-      as="image"
-      href="/images/hero/hero-plat-signature.jpg"
-      fetchpriority="high"
-    />
     <title>KLB Restaurant — Bonne cuisine, bonne ambiance</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="klb-preloader" role="status" aria-live="polite">
+      <span class="klb-sr">Chargement de KLB</span>
+      <div class="klb-shell" aria-hidden="true"><i class="klb-dot"></i><i class="klb-line"></i></div>
+      <div class="klb-scene" aria-hidden="true">
+        <i class="klb-dot"></i><i class="klb-line"></i>
+        <span class="klb-counter"><span id="klb-progress">000</span></span>
+        <span class="klb-city">Morofé · Yamoussoukro</span>
+        <div class="klb-plates">
+          <i class="klb-plate"></i><i class="klb-plate"></i><i class="klb-plate"></i>
+          <i class="klb-plate"></i><i class="klb-plate"></i><i class="klb-plate"></i>
+        </div>
+        <i class="klb-badge"></i>
+        <svg class="klb-bell" viewBox="0 0 120 120">
+          <path class="klb-base-path" d="M26 88h68" />
+          <g class="klb-lid">
+            <path class="klb-dome-path" d="M30 84c0-31 13-54 30-54s30 23 30 54z" />
+            <path class="klb-handle-path" d="M54 29v-7a6 6 0 0 1 12 0v7" />
+          </g>
+        </svg>
+        <div class="klb-word"><span class="klb-letter">K</span><span class="klb-letter">L</span><span class="klb-letter">B</span></div>
+        <i class="klb-gold"></i>
+        <div class="klb-doors">
+          <div class="klb-door klb-door--left"><span class="klb-door-word klb-door-word--left">KLB</span></div>
+          <div class="klb-door klb-door--right"><span class="klb-door-word klb-door-word--right">KLB</span></div>
+          <i class="klb-seam"></i>
+        </div>
+      </div>
+    </div>
+    <div id="root" aria-busy="true"></div>
+    <script>
+      setTimeout(()=>{if(document.documentElement.dataset.klbRevealed)return;document.documentElement.dataset.klbRevealed='1';document.getElementById('klb-preloader')?.remove();document.getElementById('root')?.setAttribute('aria-busy','false');document.documentElement.classList.remove('klb-loading');window.dispatchEvent(new Event('klb:revealed'))},3500)
+    </script>
+    <noscript><style>#klb-preloader{display:none!important}html.klb-loading{overflow:auto!important;animation:none!important}</style></noscript>
+    <script type="module" src="/src/preloader/preloader.js"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

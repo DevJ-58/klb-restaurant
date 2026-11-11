@@ -1,17 +1,17 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLocation, useNavigate, type To } from 'react-router-dom';
 import { scrollToTop } from '../../lib/lenis';
 import { prefersReducedMotion } from '../../lib/motion';
-import { splitChars } from '../../lib/splitChars';
+import './transitions.css';
 
-gsap.registerPlugin(ScrollTrigger);
+const NORMAL_COVER = 450;
+const NORMAL_REVEAL = 350;
+const REDUCED_DURATION = 200;
 
 type TransitionContextValue = {
   isTransitioning: boolean;
-  transitionTo: (to: To, title: string) => void;
+  transitionTo: (to: To) => void;
 };
 
 const TransitionContext = createContext<TransitionContextValue | null>(null);
@@ -40,100 +40,58 @@ function focusPageHeading(): void {
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const navigateRef = useRef(navigate);
   const curtainRef = useRef<HTMLDivElement>(null);
   const isTransitioningRef = useRef(false);
   const pendingToRef = useRef<To | null>(null);
   const previousPathRef = useRef(location.pathname);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [curtainMode, setCurtainMode] = useState<'curtain' | 'fade'>('curtain');
-  const [pageTitle, setPageTitle] = useState('');
-  navigateRef.current = navigate;
-  useGSAP({ scope: curtainRef });
+  const [curtainState, setCurtainState] = useState<'hidden' | 'covering' | 'revealing'>('hidden');
+  const timersRef = useRef<number[]>([]);
 
-  const finishTransition = useCallback(() => {
+  const finishTransition = useCallback((): void => {
     pendingToRef.current = null;
     isTransitioningRef.current = false;
     setIsTransitioning(false);
+    setCurtainState('hidden');
     focusPageHeading();
   }, []);
 
-  const transitionTo = useCallback(
-    (to: To, title: string) => {
+  const beginTransition = useCallback(
+    (to: To | null): void => {
       if (isTransitioningRef.current || !curtainRef.current) {
         return;
       }
 
+      const reduced = prefersReducedMotion();
+      const coverDuration = reduced ? REDUCED_DURATION : NORMAL_COVER;
+      const revealDuration = reduced ? REDUCED_DURATION : NORMAL_REVEAL;
       pendingToRef.current = to;
       isTransitioningRef.current = true;
-      setPageTitle(title);
-      setCurtainMode(prefersReducedMotion() ? 'fade' : 'curtain');
       setIsTransitioning(true);
-    },
-    [],
-  );
+      setCurtainState('covering');
 
-  useGSAP(
-    () => {
-      const curtain = curtainRef.current;
-      if (!isTransitioning || !curtain) {
-        return;
-      }
-
-      if (curtainMode === 'fade') {
-        const isRouteTransition = pendingToRef.current !== null;
-        gsap.set(curtain, { yPercent: 0, opacity: 0 });
-        const timeline = gsap.timeline({ onComplete: finishTransition });
-        timeline.to(curtain, {
-          opacity: 1,
-          duration: isRouteTransition ? 0.1 : 0.125,
-        });
-        timeline.call(() => {
-          const to = pendingToRef.current;
-          if (to) {
+      timersRef.current.push(
+        window.setTimeout(() => {
+          const target = pendingToRef.current;
+          if (target) {
             pendingToRef.current = null;
-            navigateRef.current(to);
+            navigate(target);
+            refreshPage();
           }
-          refreshPage();
-        });
-        timeline.to(curtain, {
-          opacity: 0,
-          duration: isRouteTransition ? 0.1 : 0.125,
-        });
-        return;
-      }
-
-      gsap.set(curtain, { yPercent: 100, opacity: 1 });
-      const chars = curtain.querySelectorAll<HTMLElement>('.transition-char');
-      const timeline = gsap.timeline({ onComplete: finishTransition });
-      timeline.to(curtain, { yPercent: 0, duration: 0.7, ease: 'expo.inOut' });
-      timeline.call(() => {
-        const to = pendingToRef.current;
-        if (to) {
-          pendingToRef.current = null;
-          navigateRef.current(to);
-          refreshPage();
-        }
-      });
-      timeline.from(chars, {
-        y: 32,
-        opacity: 0,
-        duration: 0.2,
-        stagger: 0.03,
-        ease: 'power4.out',
-      });
-      timeline.to(
-        curtain,
-        { yPercent: -100, duration: 0.7, ease: 'expo.inOut' },
-        '+=0.12',
+          setCurtainState('revealing');
+          timersRef.current.push(
+            window.setTimeout(() => {
+              window.dispatchEvent(new Event('klb:revealed'));
+            }, revealDuration / 2),
+          );
+          timersRef.current.push(window.setTimeout(finishTransition, revealDuration));
+        }, coverDuration),
       );
     },
-    {
-      scope: curtainRef,
-      dependencies: [curtainMode, finishTransition, isTransitioning, pageTitle],
-      revertOnUpdate: true,
-    },
+    [finishTransition, navigate],
   );
+
+  const transitionTo = useCallback((to: To) => beginTransition(to), [beginTransition]);
 
   useEffect(() => {
     if (previousPathRef.current === location.pathname) {
@@ -141,33 +99,29 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     }
     previousPathRef.current = location.pathname;
 
-    if (isTransitioningRef.current || !curtainRef.current) {
-      return;
+    if (!isTransitioningRef.current) {
+      beginTransition(null);
     }
+  }, [beginTransition, location.pathname]);
 
-    isTransitioningRef.current = true;
-    setIsTransitioning(true);
-    setCurtainMode('fade');
-    pendingToRef.current = null;
-    isTransitioningRef.current = true;
-    setPageTitle('');
-    setCurtainMode('fade');
-    setIsTransitioning(true);
-  }, [location.pathname]);
+  useEffect(
+    () => () => {
+      timersRef.current.forEach((timer) => window.clearTimeout(timer));
+    },
+    [],
+  );
 
   return (
     <TransitionContext.Provider value={{ isTransitioning, transitionTo }}>
       {children}
       <div
-        className={`transition-curtain transition-curtain--${curtainMode}${isTransitioning ? ' is-active' : ''}`}
+        className={`transition-curtain${curtainState === 'hidden' ? '' : ` is-${curtainState}`}`}
         ref={curtainRef}
         aria-hidden="true"
       >
-        {pageTitle && (
-          <p className="transition-title" aria-label={pageTitle}>
-            {splitChars(pageTitle, 'transition-char')}
-          </p>
-        )}
+        <svg className="transition-curtain__bell" viewBox="0 0 48 48">
+          <path d="M10 31c0-12 6-20 14-20s14 8 14 20M7 33h34M20 11V8a4 4 0 0 1 8 0v3" />
+        </svg>
       </div>
     </TransitionContext.Provider>
   );

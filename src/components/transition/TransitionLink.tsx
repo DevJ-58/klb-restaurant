@@ -6,21 +6,6 @@ type TransitionLinkProps = Omit<LinkProps, 'onClick'> & {
   onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 };
 
-function titleForPath(pathname: string): string {
-  switch (pathname) {
-    case '/':
-      return 'KLB';
-    case '/carte':
-      return 'La carte';
-    case '/ambiance':
-      return 'L’ambiance';
-    case '/nous-trouver':
-      return 'Nous trouver';
-    default:
-      return 'KLB';
-  }
-}
-
 export function TransitionLink({
   to,
   onClick,
@@ -50,7 +35,7 @@ export function TransitionLink({
       return;
     }
 
-    transitionTo(to, titleForPath(resolved.pathname));
+    transitionTo(to);
   }
 
   return <Link {...props} to={to} target={target} onClick={handleClick} />;

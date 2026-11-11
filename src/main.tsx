@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { App } from './App';
 import { startLenis } from './lib/lenis';
 import './styles/tokens.css';
+import './styles/home-hero.css';
 import './styles/touches.css';
 import './styles/nous-trouver.css';
 import './styles/tiles.css';

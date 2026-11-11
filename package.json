@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run optimize:images && tsc -b && vite build",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "test:hero-layout": "node scripts/hero-layout-audit.mjs",
     "preview": "vite preview",
     "audit": "node scripts/audit-scroll.mjs",
     "snap:baseline": "node scripts/visual-snapshot.mjs --mode baseline",
@@ -31,6 +33,7 @@
     "pixelmatch": "^8.0.0",
     "playwright": "^1.64.1",
     "pngjs": "^7.0.0",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.1.17",
     "typescript": "~5.9.3",
     "vite": "^7.2.2"

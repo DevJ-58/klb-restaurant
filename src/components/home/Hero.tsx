@@ -1,41 +1,80 @@
 import { useEffect, useRef, useState } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowUpRight } from 'lucide-react';
 import { getOpenStatus } from '../../lib/hours';
-import { prefersReducedMotion } from '../../lib/motion';
-import { useIntro } from '../loader/Loader';
-import { SmartImage } from '../SmartImage';
-import { OptimizedImg } from '../OptimizedImg';
-import { splitChars } from '../../lib/splitChars';
-import { CornerDish } from '../ui/CornerDish';
-import { placements } from '../../data/featured';
+import { getWebpVariant } from '../../lib/images';
+import { heroBackground, heroSubtitle } from '../../data/hero';
+import { site } from '../../config/site';
+import { TransitionLink } from '../transition/TransitionLink';
 import { Section } from '../Section';
-import { homeSectionById } from '../../data/sections';
 
-gsap.registerPlugin(ScrollTrigger);
+const photos = [
+  { className: 'hero-photo--arch', src: '/images/ambiance-salle-01.jpg' },
+  { className: 'hero-photo--circle', src: '/images/equipe/cuisine-flamme.jpg' },
+  { className: 'hero-photo--rectangle', src: '/images/ambiance-comptoir.jpg' },
+] as const;
 
-const titleLines = ['Bonne', 'cuisine,', 'bonne', 'ambiance.'];
-const title = titleLines.join(' ');
-const maskPath =
-  'M0.52,0.02 C0.74,0.0 0.95,0.12 0.98,0.34 C1.0,0.55 0.9,0.62 0.93,0.78 C0.96,0.93 0.78,1.0 0.58,0.99 C0.36,0.98 0.2,1.0 0.08,0.86 C0.0,0.72 0.06,0.55 0.03,0.38 C0.0,0.2 0.3,0.04 0.52,0.02 Z';
-const outlinePath =
-  'M52 2 C74 0 95 12 98 34 C100 55 90 62 93 78 C96 93 78 100 58 99 C36 98 20 100 8 86 C0 72 6 55 3 38 C0 20 30 4 52 2 Z';
+function BellFallback() {
+  return (
+    <span className="hero-photo-fallback">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M10 31c0-12 6-20 14-20s14 8 14 20M7 33h34M20 11V8a4 4 0 0 1 8 0v3" />
+      </svg>
+    </span>
+  );
+}
+
+function HeroPhoto({ className, src }: { className: string; src: string }) {
+  const [unavailable, setUnavailable] = useState(!getWebpVariant(src, 640));
+  const optimizedSource = getWebpVariant(src, 640);
+
+  return (
+    <div className={`hero-photo ${className}`} aria-hidden="true">
+      {unavailable || !optimizedSource ? (
+        <BellFallback />
+      ) : (
+        <img
+          className="hero-photo-image"
+          src={optimizedSource}
+          alt=""
+          width="640"
+          height="800"
+          loading="eager"
+          decoding="async"
+          onError={() => setUnavailable(true)}
+        />
+      )}
+    </div>
+  );
+}
+
+function HeroSeal() {
+  return (
+    <TransitionLink
+      className="hero-seal"
+      to="/carte"
+      aria-label="Voir la carte"
+      data-magnetic
+    >
+      <svg className="hero-seal-ring" viewBox="0 0 150 150" aria-hidden="true">
+        <defs>
+          <path
+            id="hero-seal-circle"
+            d="M75 75m-58 0a58 58 0 1 1 116 0a58 58 0 1 1-116 0"
+          />
+        </defs>
+        <text>
+          <textPath href="#hero-seal-circle">Voir la carte · Voir la carte · </textPath>
+        </text>
+      </svg>
+      <ArrowUpRight className="hero-seal-arrow" aria-hidden="true" size={34} strokeWidth={1.8} />
+    </TransitionLink>
+  );
+}
 
 export function Hero() {
-  const { introDone } = useIntro();
-  const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const titleCharsRef = useRef<HTMLSpanElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const statusRef = useRef<HTMLDivElement>(null);
-  const indicatorRef = useRef<HTMLDivElement>(null);
-  const artRef = useRef<HTMLDivElement>(null);
-  const pointerRef = useRef<HTMLDivElement>(null);
-  const zoomRef = useRef<HTMLDivElement>(null);
-  const floatRef = useRef<HTMLDivElement>(null);
-  const outlineRef = useRef<SVGPathElement>(null);
   const [openStatus, setOpenStatus] = useState(getOpenStatus);
+  const [backgroundReady, setBackgroundReady] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const updateStatus = (): void => setOpenStatus(getOpenStatus());
@@ -43,260 +82,118 @@ export function Hero() {
     return () => window.clearInterval(interval);
   }, []);
 
-  useGSAP(
-    (_context, contextSafe) => {
-      if (!introDone || !sectionRef.current) {
-        return;
-      }
-      if (!contextSafe) {
-        throw new Error('Le contexte GSAP du hero est indisponible.');
-      }
-
-      const section = sectionRef.current;
-      let cleanupMotion = (): void => {};
-      let indicatorDismissed = false;
-      const dismissIndicator = contextSafe(() => {
-        if (indicatorDismissed) {
-          return;
-        }
-        indicatorDismissed = true;
-        gsap.to(indicatorRef.current, { opacity: 0, duration: 0.2 });
-      });
-      window.addEventListener('scroll', dismissIndicator, { once: true, passive: true });
-      const titleChars = titleCharsRef.current?.querySelectorAll<HTMLElement>('.hero-char');
-      const outline = outlineRef.current;
-      const pathLength = outline?.getTotalLength() ?? 0;
-
-      if (prefersReducedMotion()) {
-        gsap.fromTo(
-          [titleRef.current, artRef.current, subtitleRef.current, statusRef.current],
-          { opacity: 0 },
-          { opacity: 1, duration: 0.3, stagger: 0.05, ease: 'none' },
-        );
-        outline?.setAttribute('stroke-dashoffset', '0');
-        return () => window.removeEventListener('scroll', dismissIndicator);
-      }
-
-      if (outline && pathLength > 0) {
-        gsap.set(outline, {
-          strokeDasharray: pathLength,
-          strokeDashoffset: pathLength,
-        });
-      }
-
-      const startMotion = contextSafe(() => {
-        if (!pointerRef.current || !floatRef.current) {
-          return;
-        }
-
-        const floatAnimation = gsap.fromTo(
-          floatRef.current,
-          { y: -8 },
-          { y: 8, duration: 6, ease: 'sine.inOut', repeat: -1, yoyo: true },
-        );
-        let resizeFrame = 0;
-        const onResize = (): void => {
-          window.cancelAnimationFrame(resizeFrame);
-          resizeFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
-        };
-        window.addEventListener('resize', onResize, { passive: true });
-
-        let resetPointer = (): void => {};
-        const pointerMedia = window.matchMedia('(min-width: 768px) and (pointer: fine)');
-        if (pointerMedia.matches) {
-          const moveX = gsap.quickTo(pointerRef.current, 'x', {
-            duration: 0.6,
-            ease: 'power3.out',
-          });
-          const moveY = gsap.quickTo(pointerRef.current, 'y', {
-            duration: 0.6,
-            ease: 'power3.out',
-          });
-          const rotate = gsap.quickTo(pointerRef.current, 'rotation', {
-            duration: 0.6,
-            ease: 'power3.out',
-          });
-          const onPointerMove = contextSafe((event: PointerEvent): void => {
-            const bounds = section.getBoundingClientRect();
-            const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 24;
-            const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 24;
-            moveX(x);
-            moveY(y);
-            rotate((x / 12) * 1.5);
-          });
-          const reset = contextSafe((): void => {
-            moveX(0);
-            moveY(0);
-            rotate(0);
-          });
-          section.addEventListener('pointermove', onPointerMove);
-          section.addEventListener('pointerleave', reset);
-          resetPointer = () => {
-            section.removeEventListener('pointermove', onPointerMove);
-            section.removeEventListener('pointerleave', reset);
-          };
-        }
-
-        cleanupMotion = () => {
-          resetPointer();
-          window.removeEventListener('scroll', dismissIndicator);
-          window.removeEventListener('resize', onResize);
-          window.cancelAnimationFrame(resizeFrame);
-          floatAnimation.kill();
-        };
-        ScrollTrigger.refresh();
-      });
-
-      const entrance = gsap.timeline({ onComplete: startMotion });
-
-      if (titleChars) {
-        entrance.from(titleChars, {
-          yPercent: 60,
-          opacity: 0,
-          rotation: -4,
-          duration: 0.9,
-          stagger: 0.02,
-          ease: 'power4.out',
-        });
-      }
-      entrance.fromTo(
-        artRef.current,
-        { scale: 0.6, rotation: -8, opacity: 0 },
-        { scale: 1, rotation: 0, opacity: 1, duration: 1.4, ease: 'power4.out' },
-        0,
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const actionBar = document.querySelector<HTMLElement>('[data-actionbar]');
+    const header = document.querySelector<HTMLElement>('header');
+    const updateActionBarHeight = (): void => {
+      section.style.setProperty(
+        '--hero-actionbar-height',
+        `${actionBar?.getBoundingClientRect().height ?? 48}px`,
       );
-      if (outline && pathLength > 0) {
-        entrance.to(outline, { strokeDashoffset: 0, duration: 1, ease: 'power4.out' }, 1.4);
-      }
-      const copyRevealAt = 0.9 + Math.max((titleChars?.length ?? 1) - 1, 0) * 0.02;
-      entrance.from(
-        [subtitleRef.current, statusRef.current],
-        { y: 24, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power4.out' },
-        copyRevealAt,
+      section.style.setProperty(
+        '--hero-header-height',
+        `${header?.getBoundingClientRect().height ?? 88}px`,
       );
-      gsap.fromTo(
-        indicatorRef.current,
-        { scaleY: 0.35, transformOrigin: 'top center' },
-        { scaleY: 1, duration: 0.9, ease: 'power4.inOut', repeat: -1, yoyo: true },
-      );
+    };
 
-      return () => {
-        entrance.kill();
-        window.removeEventListener('scroll', dismissIndicator);
-        cleanupMotion();
-      };
-    },
-    { scope: sectionRef, dependencies: [introDone], revertOnUpdate: true },
-  );
+    const observer = new ResizeObserver(updateActionBarHeight);
+    if (actionBar) observer.observe(actionBar);
+    if (header) observer.observe(header);
+    window.addEventListener('resize', updateActionBarHeight);
+    updateActionBarHeight();
 
-  const refreshAfterImageLoad = (): void => {
-    ScrollTrigger.refresh();
-  };
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateActionBarHeight);
+    };
+  }, []);
 
   return (
-    <>
-      <svg className="hero-clip-defs" aria-hidden="true" focusable="false">
-        <defs>
-          <clipPath id="hero-organic-clip" clipPathUnits="objectBoundingBox">
-            <path d={maskPath} />
-          </clipPath>
-          <linearGradient id="hero-outline-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FFD36B" />
-            <stop offset="48%" stopColor="#F5A912" />
-            <stop offset="100%" stopColor="#C9800B" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <Section
-        className="home-hero"
-        ref={sectionRef}
-        data-surface="dark"
-        aria-labelledby="home-hero-title"
-        style={{ backgroundColor: homeSectionById.hero.bgStart }}
-      >
-        <div className="hero-backdrop" aria-hidden="true">
-          <OptimizedImg
-            src="/images/hero/hero-plat-signature.jpg"
-            alt=""
-            loading="eager"
-            fetchPriority="high"
-          />
-        </div>
-        <div className="hero-glow" aria-hidden="true" />
-        <div className="hero-veil" aria-hidden="true" />
-        <div className="hero-content">
-          <div className="hero-copy">
-            <h1 className="hero-title" id="home-hero-title" aria-label={title} tabIndex={-1} ref={titleRef} data-content>
-              <span className="hero-title-lines" ref={titleCharsRef} aria-hidden="true">
-                {titleLines.map((line) => (
-                  <span className="hero-title-line" key={line}>
-                    {splitChars(line, 'hero-char')}
-                  </span>
-                ))}
-              </span>
-            </h1>
-            <p className="hero-subtitle" ref={subtitleRef} data-content>
-              Restaurant et cafétéria à Morofé, Yamoussoukro.
-            </p>
-            <div
-              className={`hero-open-status${openStatus.isOpen ? ' hero-open-status--open' : ' hero-open-status--closed'}`}
-              ref={statusRef}
-              aria-live="polite"
-              data-content
-            >
-              <span className="hero-open-status-dot" aria-hidden="true" />
-              <span>{openStatus.isOpen ? 'Ouvert maintenant' : 'Fermé'}</span>
-              <span className="hero-open-status-time">{openStatus.message}</span>
-            </div>
-          </div>
-
-          <div className="hero-art" ref={artRef}>
-            <div className="hero-art-pointer" ref={pointerRef}>
-              <div className="hero-mask-zoom" ref={zoomRef}>
-                <svg className="hero-mask-outline" viewBox="0 0 100 100" aria-hidden="true">
-                  <path
-                    ref={outlineRef}
-                    d={outlinePath}
-                    pathLength={1000}
-                    stroke="url(#hero-outline-gradient)"
-                    strokeWidth="0.5"
-                    fill="none"
-                    strokeDasharray="1000"
-                    strokeDashoffset="1000"
-                  />
-                </svg>
-                <div className="hero-mask-float" ref={floatRef} data-content="media">
-                  <SmartImage
-                    src="/images/hero/hero-plat-signature.jpg"
-                    alt="Plat signature de KLB Restaurant"
-                    aspectRatio="4 / 5"
-                    className="hero-dish-image"
-                    loading="eager"
-                    fetchPriority="high"
-                    onLoad={refreshAfterImageLoad}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="hero-scroll-indicator" ref={indicatorRef} aria-hidden="true" data-content>
-          <span>Défiler</span>
-          <span className="hero-scroll-line" />
-        </div>
-
-        <div className="corner-dish-frame hero-corner-frame">
-          {introDone && (
-            <CornerDish
-              itemId={placements.hero}
-              corner="bottom-right"
-              offset="calc(var(--action-bar-height) + 16px)"
-              className="hero-corner-dish"
+    <Section
+      className="home-hero"
+      ref={sectionRef}
+      data-surface="dark"
+      aria-labelledby="home-hero-title"
+    >
+      <div className="home-hero-media" aria-hidden="true">
+        <div className="home-hero-media-visual">
+          <picture>
+            <source
+              media="(max-width: 767px)"
+              srcSet={heroBackground.mobile}
+              type="image/webp"
             />
-          )}
+            <img
+              className={`home-hero-poster${backgroundReady ? ' is-ready' : ''}`}
+              src={heroBackground.desktop}
+              alt=""
+              fetchPriority="high"
+              decoding="async"
+              onLoad={() => setBackgroundReady(true)}
+              onError={(event) => {
+                if (event.currentTarget.src.endsWith(heroBackground.fallback)) return;
+                event.currentTarget.parentElement?.querySelector('source')?.removeAttribute('srcset');
+                event.currentTarget.src = heroBackground.fallback;
+              }}
+            />
+          </picture>
         </div>
-      </Section>
-    </>
+      </div>
+      <div className="home-hero-veil" aria-hidden="true" />
+
+      <div className="hero-info-bar" aria-label="Informations du restaurant">
+        <span className="hero-info-item">Restaurant et cafétéria</span>
+        <span className="hero-info-rule" aria-hidden="true" />
+        <span className="hero-info-item">{site.neighborhood}, {site.city}</span>
+        <span className="hero-info-rule" aria-hidden="true" />
+        <span className="hero-info-item hero-info-status" aria-live="polite">
+          <span className={`hero-status-dot${openStatus.isOpen ? ' is-open' : ''}`} aria-hidden="true" />
+          <span className="hero-status-label">{openStatus.isOpen ? 'Ouvert maintenant' : 'Fermé'}</span>
+          <span className="hero-info-hours">{openStatus.message}</span>
+        </span>
+      </div>
+
+      <div className="hero-copy-stack">
+        <div className="hero-quote">
+        <h2 className="hero-quote-title" aria-label="Bonne cuisine, bonne ambiance.">
+          <span className="hero-quote-mask"><span>Bonne cuisine,</span></span>
+          <span className="hero-quote-mask hero-quote-changing">
+            <span className="hero-quote-current">bonne ambiance.</span>
+            <span className="hero-quote-next">Venez comme vous êtes.</span>
+          </span>
+        </h2>
+        </div>
+        <p className="hero-quote-subtitle">{heroSubtitle}</p>
+        <p className="hero-quote-subtitle hero-quote-subtitle--compact">
+          Restaurant et cafétéria à Morofé, Yamoussoukro.
+        </p>
+      </div>
+
+      <div className="hero-photo-stage" aria-hidden="true">
+        <div className="hero-photo-canvas">
+          {photos.map((photo) => (
+            <HeroPhoto key={photo.className} className={photo.className} src={photo.src} />
+          ))}
+        </div>
+        <HeroSeal />
+      </div>
+
+      <div className="hero-title-group">
+        <h1 className="hero-title" id="home-hero-title" aria-label="KLB Restaurant">
+          <span className="hero-title-klb" aria-hidden="true">
+            {'KLB'.split('').map((letter, index) => (
+              <span className="hero-title-letter-mask" key={`${letter}-${index}`}>
+                <span className="hero-title-letter">{letter}</span>
+              </span>
+            ))}
+          </span>
+          <span className="hero-title-restaurant" aria-hidden="true">Restaurant</span>
+        </h1>
+      </div>
+
+      <div className="hero-exit-cover" aria-hidden="true" />
+    </Section>
   );
 }
